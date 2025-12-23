@@ -1,0 +1,167 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../components/Button';
+import { MapPin, DollarSign, Navigation, Clock } from 'lucide-react';
+
+export function NewOrderNotificationScreen() {
+  const navigate = useNavigate();
+  const [timeLeft, setTimeLeft] = useState(45);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          navigate('/dashboard');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [navigate]);
+
+  const handleAccept = () => {
+    navigate('/order-accepted');
+  };
+
+  const handleDecline = () => {
+    navigate('/decline-order');
+  };
+
+  // Calculate progress for animated ring (circumference = 2 * π * r = 2 * 3.14159 * 54 ≈ 339)
+  const radius = 54;
+  const circumference = 2 * Math.PI * radius;
+  const progress = ((45 - timeLeft) / 45) * circumference;
+
+  return (
+    <div className="h-screen relative overflow-hidden">
+      {/* Map Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)'
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70" />
+      </div>
+
+      {/* Map Markers Overlay (simulated) */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-4xl animate-[pulse_2s_ease-in-out_infinite]">
+        📍
+      </div>
+      <div className="absolute bottom-1/3 left-1/3 text-3xl">
+        🚗
+      </div>
+
+      {/* Route Distance Indicator */}
+      <div className="absolute top-1/3 right-8 bg-white/90 px-3 py-2 rounded-lg shadow-lg">
+        <p className="text-xs text-neutral-600">Distance</p>
+        <p className="font-semibold">3.2 km</p>
+      </div>
+
+      {/* Pulsing Glow Effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-brand-secondary/10 blur-3xl animate-[pulse_3s_ease-in-out_infinite]" />
+
+      {/* Bottom Sheet */}
+      <div className="absolute bottom-0 left-0 right-0 glass-effect rounded-t-[32px] safe-area-bottom animate-[slideUp_400ms]">
+        <div className="w-10 h-1 bg-white/40 rounded-full mx-auto mt-3 mb-4" />
+        
+        <div className="px-5 pb-6">
+          {/* Header with Timer */}
+          <div className="flex items-center justify-between mb-6">
+            <h4 className="text-white">NEW ORDER REQUEST</h4>
+            
+            {/* Circular Countdown Timer */}
+            <div className="relative w-20 h-20">
+              <svg className="w-full h-full transform -rotate-90">
+                {/* Background Circle */}
+                <circle
+                  cx="40"
+                  cy="40"
+                  r={radius}
+                  stroke="rgba(255, 255, 255, 0.2)"
+                  strokeWidth="6"
+                  fill="none"
+                />
+                {/* Progress Circle */}
+                <circle
+                  cx="40"
+                  cy="40"
+                  r={radius}
+                  stroke="#FF6B6B"
+                  strokeWidth="6"
+                  fill="none"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={progress}
+                  strokeLinecap="round"
+                  className="transition-all duration-1000"
+                />
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">{timeLeft}</div>
+                  <div className="text-xs text-white/70">sec</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Order Info Row */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-4">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 rounded-xl bg-warning-light flex items-center justify-center text-2xl">
+                🔋
+              </div>
+              <div className="flex-1">
+                <h6 className="text-white">Battery Replacement</h6>
+                <p className="text-white/70 text-sm">Quick Service</p>
+              </div>
+            </div>
+
+            {/* Badges Row */}
+            <div className="flex gap-2">
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-success rounded-lg">
+                <DollarSign size={14} className="text-white" />
+                <span className="text-white text-sm font-semibold">SAR 150</span>
+              </div>
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-lg">
+                <Navigation size={14} className="text-white" />
+                <span className="text-white text-sm">3.2 km</span>
+              </div>
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-lg">
+                <Clock size={14} className="text-white" />
+                <span className="text-white text-sm">~8 min</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="flex items-start gap-3 mb-6 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+            <MapPin size={20} className="text-white mt-1 flex-shrink-0" />
+            <div>
+              <p className="text-white/70 text-sm mb-1">Customer Location</p>
+              <p className="text-white">Al Olaya District, Riyadh</p>
+              <p className="text-white/70 text-sm mt-1">King Fahd Road, near Faisaliah Tower</p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-3">
+            <Button
+              className="w-full h-14 shadow-[0_0_20px_rgba(45,127,249,0.5)] animate-[pulse_2s_ease-in-out_infinite]"
+              onClick={handleAccept}
+            >
+              ACCEPT ORDER
+            </Button>
+            <button
+              onClick={handleDecline}
+              className="w-full text-white/70 py-3 hover:text-white transition-colors"
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
