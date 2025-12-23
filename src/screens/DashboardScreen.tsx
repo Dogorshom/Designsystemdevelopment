@@ -152,8 +152,9 @@ export function DashboardScreen() {
         </>
       )}
 
-      <div className="screen-padding mt-[-40px] relative z-10">
+      <div className="screen-padding relative z-10">
         {/* Online Toggle Card */}
+        <br />
         <Card className="mb-6 glass-effect">
           <div className="flex items-center justify-between">
             <div>
