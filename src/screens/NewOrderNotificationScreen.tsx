@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
-import { MapPin, DollarSign, Navigation, Clock } from 'lucide-react';
+import { MapPin, DollarSign, Navigation, Clock, ChevronUp } from 'lucide-react';
 
 export function NewOrderNotificationScreen() {
   const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState(45);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,12 +36,12 @@ export function NewOrderNotificationScreen() {
 
   return (
     <div className="h-screen relative overflow-hidden bg-neutral-100">
-      {/* Map Background (60%) */}
+      {/* Map Background (30%) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '60%'
+          height: '30%'
         }}
       >
         {/* Map Markers */}
@@ -69,10 +70,65 @@ export function NewOrderNotificationScreen() {
       </div>
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] h-[55%] safe-area-bottom overflow-y-auto animate-[slideUp_400ms]">
-        <div className="w-10 h-1 bg-neutral-400 rounded-full mx-auto my-3" />
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] safe-area-bottom transition-all duration-300 ${
+          isExpanded ? 'h-[70%]' : 'h-[25%]'
+        }`}
+      >
+        {/* Draggable Handle */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full py-3 flex justify-center"
+        >
+          <div className="w-10 h-1 bg-neutral-400 rounded-full" />
+          <ChevronUp
+            size={20}
+            className={`absolute right-5 text-neutral-500 transition-transform ${
+              isExpanded ? '' : 'rotate-180'
+            }`}
+          />
+        </button>
         
-        <div className="px-5 pb-6">
+        <div className="px-5 pb-6 overflow-y-auto" style={{ maxHeight: 'calc(100% - 60px)' }}>
+          {/* Collapsed State */}
+          {!isExpanded && (
+            <div className="flex items-center justify-between py-2">
+              <div>
+                <p className="text-sm text-neutral-600">New Order Request</p>
+                <p className="font-semibold">Battery Replacement • SAR 150</p>
+              </div>
+              <div className="relative w-16 h-16">
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    stroke="rgba(200, 200, 200, 0.3)"
+                    strokeWidth="4"
+                    fill="none"
+                  />
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    stroke="#FF6B6B"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeDasharray={2 * Math.PI * 28}
+                    strokeDashoffset={((45 - timeLeft) / 45) * 2 * Math.PI * 28}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold">{timeLeft}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Expanded State */}
+          {isExpanded && (
+            <>
           {/* Header with Timer */}
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -185,6 +241,8 @@ export function NewOrderNotificationScreen() {
               Decline
             </button>
           </div>
+          </>
+          )}
         </div>
       </div>
     </div>

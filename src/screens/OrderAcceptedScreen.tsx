@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, MapPin, Phone, MessageCircle, Navigation } from 'lucide-react';
+import { CheckCircle2, MapPin, Phone, MessageCircle, Navigation, ChevronUp } from 'lucide-react';
 import { Button } from '../components/Button';
 
 export function OrderAcceptedScreen() {
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,12 +16,12 @@ export function OrderAcceptedScreen() {
 
   return (
     <div className="h-screen relative overflow-hidden bg-neutral-100">
-      {/* Map Section (60%) */}
+      {/* Map Section (20%) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '60%'
+          height: '40%'
         }}
       >
         {/* Map Markers */}
@@ -43,10 +44,42 @@ export function OrderAcceptedScreen() {
       </div>
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] h-[55%] safe-area-bottom overflow-y-auto">
-        <div className="w-10 h-1 bg-neutral-400 rounded-full mx-auto my-3" />
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] safe-area-bottom transition-all duration-300 ${
+          isExpanded ? 'h-[70%]' : 'h-[25%]'
+        }`}
+      >
+        {/* Draggable Handle */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full py-3 flex justify-center"
+        >
+          <div className="w-10 h-1 bg-neutral-400 rounded-full" />
+          <ChevronUp
+            size={20}
+            className={`absolute right-5 text-neutral-500 transition-transform ${
+              isExpanded ? '' : 'rotate-180'
+            }`}
+          />
+        </button>
 
-        <div className="px-5 pb-6 flex flex-col items-center justify-center h-full">
+        <div className="px-5 pb-6 overflow-y-auto" style={{ maxHeight: 'calc(100% - 60px)' }}>
+          {/* Collapsed State */}
+          {!isExpanded && (
+            <div className="flex items-center justify-between py-2">
+              <div>
+                <p className="text-sm text-neutral-600">Order Accepted!</p>
+                <p className="font-semibold">Ahmed Mohamed • Battery Replacement</p>
+              </div>
+              <div className="w-16 h-16 rounded-full bg-success-light flex items-center justify-center">
+                <CheckCircle2 size={32} className="text-success" strokeWidth={2.5} />
+              </div>
+            </div>
+          )}
+
+          {/* Expanded State */}
+          {isExpanded && (
+            <div className="flex flex-col items-center justify-center h-full">
           {/* Success Animation */}
           <div className="relative mb-6">
             <div className="w-32 h-32 rounded-full bg-success-light flex items-center justify-center animate-[pulse_1s_ease-in-out]">
@@ -95,6 +128,8 @@ export function OrderAcceptedScreen() {
               <span className="text-sm">Navigate</span>
             </button>
           </div>
+          </div>
+          )}
         </div>
       </div>
     </div>

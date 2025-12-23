@@ -35,7 +35,7 @@ export function ServiceInProgressScreen() {
         className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '40%'
+          height: '30%'
         }}
       />
 

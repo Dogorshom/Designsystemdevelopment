@@ -4,20 +4,21 @@ import { Button } from '../components/Button';
 import { OrderTimeline } from '../components/OrderTimeline';
 import { StatusPill } from '../components/StatusPill';
 import { Card } from '../components/Card';
-import { Phone, MessageCircle, Navigation, CheckCircle2, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Navigation, CheckCircle2, Clock, ChevronUp } from 'lucide-react';
 
 export function ActiveOrderArrivedScreen() {
   const navigate = useNavigate();
   const [waitTime] = useState('2 min ago');
+  const [isExpanded, setIsExpanded] = useState(true);
 
   return (
     <div className="h-screen relative overflow-hidden bg-neutral-100">
-      {/* Map Section - Zoomed in */}
+      {/* Map Section (20%) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '50%',
+          height: '30%',
           filter: 'brightness(0.9)'
         }}
       >
@@ -35,13 +36,53 @@ export function ActiveOrderArrivedScreen() {
         <div className="absolute bottom-1/4 left-1/2 text-3xl">
           🚗
         </div>
+
+        {/* Floating Controls */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            +
+          </button>
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            −
+          </button>
+        </div>
       </div>
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] h-[55%] safe-area-bottom overflow-y-auto">
-        <div className="w-10 h-1 bg-neutral-400 rounded-full mx-auto my-3" />
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] safe-area-bottom transition-all duration-300 ${
+          isExpanded ? 'h-[70%]' : 'h-[25%]'
+        }`}
+      >
+        {/* Draggable Handle */}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full py-3 flex justify-center"
+        >
+          <div className="w-10 h-1 bg-neutral-400 rounded-full" />
+          <ChevronUp
+            size={20}
+            className={`absolute right-5 text-neutral-500 transition-transform ${
+              isExpanded ? '' : 'rotate-180'
+            }`}
+          />
+        </button>
 
-        <div className="px-5 pb-6">
+        <div className="px-5 pb-6 overflow-y-auto" style={{ maxHeight: 'calc(100% - 60px)' }}>
+          {/* Collapsed State */}
+          {!isExpanded && (
+            <div className="flex items-center justify-between py-2">
+              <div>
+                <p className="text-sm text-neutral-600">Order #RSA-12345</p>
+                <p className="font-semibold">Ahmed Mohamed • Battery Replacement</p>
+              </div>
+              <StatusPill status="info">Arrived</StatusPill>
+            </div>
+          )}
+
+          {/* Expanded State */}
+          {isExpanded && (
+            <>
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -120,6 +161,8 @@ export function ActiveOrderArrivedScreen() {
           >
             START SERVICE
           </Button>
+          </>
+          )}
         </div>
       </div>
     </div>

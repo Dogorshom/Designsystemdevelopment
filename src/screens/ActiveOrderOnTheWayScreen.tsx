@@ -11,12 +11,12 @@ export function ActiveOrderOnTheWayScreen() {
 
   return (
     <div className="h-screen relative overflow-hidden bg-neutral-100">
-      {/* Map Section (60%) */}
+      {/* Map Section (20%) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '60%'
+          height: '30%'
         }}
       >
         {/* Map Markers */}
@@ -41,7 +41,7 @@ export function ActiveOrderOnTheWayScreen() {
       {/* Draggable Bottom Sheet */}
       <div
         className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] safe-area-bottom transition-all duration-300 ${
-          isExpanded ? 'h-[55%]' : 'h-[20%]'
+          isExpanded ? 'h-[70%]' : 'h-[25%]'
         }`}
       >
         {/* Handle */}
