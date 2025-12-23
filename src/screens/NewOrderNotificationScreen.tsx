@@ -34,42 +34,51 @@ export function NewOrderNotificationScreen() {
   const progress = ((45 - timeLeft) / 45) * circumference;
 
   return (
-    <div className="h-screen relative overflow-hidden">
-      {/* Map Background */}
+    <div className="h-screen relative overflow-hidden bg-neutral-100">
+      {/* Map Background (60%) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)'
+          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
+          height: '60%'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70" />
-      </div>
+        {/* Map Markers */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-4xl animate-[pulse_2s_ease-in-out_infinite]">
+          📍
+        </div>
+        <div className="absolute bottom-1/4 left-1/3 text-3xl">
+          🚗
+        </div>
 
-      {/* Map Markers Overlay (simulated) */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-4xl animate-[pulse_2s_ease-in-out_infinite]">
-        📍
-      </div>
-      <div className="absolute bottom-1/3 left-1/3 text-3xl">
-        🚗
-      </div>
+        {/* Route Distance Indicator */}
+        <div className="absolute top-1/3 right-4 bg-white px-3 py-2 rounded-lg shadow-lg">
+          <p className="text-xs text-neutral-600">Distance</p>
+          <p className="font-semibold">3.2 km</p>
+        </div>
 
-      {/* Route Distance Indicator */}
-      <div className="absolute top-1/3 right-8 bg-white/90 px-3 py-2 rounded-lg shadow-lg">
-        <p className="text-xs text-neutral-600">Distance</p>
-        <p className="font-semibold">3.2 km</p>
+        {/* Floating Controls */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            +
+          </button>
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            −
+          </button>
+        </div>
       </div>
-
-      {/* Pulsing Glow Effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-brand-secondary/10 blur-3xl animate-[pulse_3s_ease-in-out_infinite]" />
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 glass-effect rounded-t-[32px] safe-area-bottom animate-[slideUp_400ms]">
-        <div className="w-10 h-1 bg-white/40 rounded-full mx-auto mt-3 mb-4" />
+      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] h-[55%] safe-area-bottom overflow-y-auto animate-[slideUp_400ms]">
+        <div className="w-10 h-1 bg-neutral-400 rounded-full mx-auto my-3" />
         
         <div className="px-5 pb-6">
           {/* Header with Timer */}
-          <div className="flex items-center justify-between mb-6">
-            <h4 className="text-white">NEW ORDER REQUEST</h4>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-sm text-neutral-600 mb-1">New Order Request</p>
+              <h6>#RSA-12345</h6>
+            </div>
             
             {/* Circular Countdown Timer */}
             <div className="relative w-20 h-20">
@@ -79,7 +88,7 @@ export function NewOrderNotificationScreen() {
                   cx="40"
                   cy="40"
                   r={radius}
-                  stroke="rgba(255, 255, 255, 0.2)"
+                  stroke="rgba(200, 200, 200, 0.3)"
                   strokeWidth="6"
                   fill="none"
                 />
@@ -99,63 +108,79 @@ export function NewOrderNotificationScreen() {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-white">{timeLeft}</div>
-                  <div className="text-xs text-white/70">sec</div>
+                  <div className="text-2xl font-bold text-neutral-900">{timeLeft}</div>
+                  <div className="text-xs text-neutral-600">sec</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Order Info Row */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-4">
+          {/* Order Info Card */}
+          <div className="bg-neutral-100 rounded-2xl p-4 mb-4">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-12 h-12 rounded-xl bg-warning-light flex items-center justify-center text-2xl">
                 🔋
               </div>
               <div className="flex-1">
-                <h6 className="text-white">Battery Replacement</h6>
-                <p className="text-white/70 text-sm">Quick Service</p>
+                <h6>Battery Replacement</h6>
+                <p className="text-sm text-neutral-600">Quick Service</p>
               </div>
             </div>
 
             {/* Badges Row */}
             <div className="flex gap-2">
-              <div className="flex items-center gap-1 px-3 py-1.5 bg-success rounded-lg">
-                <DollarSign size={14} className="text-white" />
-                <span className="text-white text-sm font-semibold">SAR 150</span>
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-success-light rounded-lg">
+                <DollarSign size={14} className="text-success" />
+                <span className="text-sm font-semibold text-success">SAR 150</span>
               </div>
-              <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-lg">
-                <Navigation size={14} className="text-white" />
-                <span className="text-white text-sm">3.2 km</span>
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-neutral-200 rounded-lg">
+                <Navigation size={14} className="text-neutral-700" />
+                <span className="text-sm text-neutral-700">3.2 km</span>
               </div>
-              <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-lg">
-                <Clock size={14} className="text-white" />
-                <span className="text-white text-sm">~8 min</span>
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-neutral-200 rounded-lg">
+                <Clock size={14} className="text-neutral-700" />
+                <span className="text-sm text-neutral-700">~8 min</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Customer Info */}
+          <div className="bg-neutral-100 rounded-2xl p-4 mb-4">
+            <div className="flex items-start gap-4">
+              <img
+                src="https://images.unsplash.com/photo-1690162396384-6741ab2f33bd?w=50&h=50&fit=crop"
+                alt="Customer"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div className="flex-1">
+                <h6 className="mb-1">Ahmed Mohamed</h6>
+                <p className="text-sm text-neutral-700 mb-2">Toyota Camry 2020 • White</p>
+                <p className="text-sm text-neutral-700">Plate: ABC 1234</p>
               </div>
             </div>
           </div>
 
           {/* Location */}
-          <div className="flex items-start gap-3 mb-6 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-            <MapPin size={20} className="text-white mt-1 flex-shrink-0" />
+          <div className="flex items-start gap-3 mb-6 bg-neutral-100 rounded-2xl p-4">
+            <MapPin size={20} className="text-neutral-600 mt-1 flex-shrink-0" />
             <div>
-              <p className="text-white/70 text-sm mb-1">Customer Location</p>
-              <p className="text-white">Al Olaya District, Riyadh</p>
-              <p className="text-white/70 text-sm mt-1">King Fahd Road, near Faisaliah Tower</p>
+              <p className="text-sm text-neutral-600 mb-1">Customer Location</p>
+              <p className="text-neutral-900">Al Olaya District, Riyadh</p>
+              <p className="text-sm text-neutral-600 mt-1">King Fahd Road, near Faisaliah Tower</p>
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="space-y-3">
             <Button
-              className="w-full h-14 shadow-[0_0_20px_rgba(45,127,249,0.5)] animate-[pulse_2s_ease-in-out_infinite]"
+              className="w-full h-14 shadow-lg animate-[pulse_2s_ease-in-out_infinite]"
               onClick={handleAccept}
             >
               ACCEPT ORDER
             </Button>
             <button
               onClick={handleDecline}
-              className="w-full text-white/70 py-3 hover:text-white transition-colors"
+              className="w-full text-neutral-600 py-3 hover:text-neutral-900 transition-colors"
             >
               Decline
             </button>

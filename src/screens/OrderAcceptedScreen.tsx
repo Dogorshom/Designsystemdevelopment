@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, MapPin, Phone, MessageCircle, Navigation } from 'lucide-react';
+import { Button } from '../components/Button';
 
 export function OrderAcceptedScreen() {
   const navigate = useNavigate();
@@ -8,25 +9,94 @@ export function OrderAcceptedScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/active-order-ontheway');
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="h-screen gradient-hero flex flex-col items-center justify-center">
-      {/* Success Animation */}
-      <div className="relative mb-8">
-        <div className="w-32 h-32 rounded-full bg-success-light flex items-center justify-center animate-[pulse_1s_ease-in-out]">
-          <CheckCircle2 size={80} className="text-success" strokeWidth={2.5} />
+    <div className="h-screen relative overflow-hidden bg-neutral-100">
+      {/* Map Section (60%) */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
+          height: '60%'
+        }}
+      >
+        {/* Map Markers */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 text-4xl">
+          📍
         </div>
-        {/* Expanding circles */}
-        <div className="absolute inset-0 rounded-full bg-success/20 animate-[pulse_1s_ease-in-out_0.2s]" />
-        <div className="absolute inset-0 rounded-full bg-success/10 animate-[pulse_1s_ease-in-out_0.4s]" />
+        <div className="absolute bottom-1/4 left-1/3 text-3xl">
+          🚗
+        </div>
+
+        {/* Floating Controls */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            +
+          </button>
+          <button className="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center">
+            −
+          </button>
+        </div>
       </div>
 
-      {/* Text */}
-      <h2 className="text-white mb-2">Order Accepted!</h2>
-      <p className="text-neutral-300 text-lg">Navigate to customer location</p>
+      {/* Bottom Sheet */}
+      <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] h-[55%] safe-area-bottom overflow-y-auto">
+        <div className="w-10 h-1 bg-neutral-400 rounded-full mx-auto my-3" />
+
+        <div className="px-5 pb-6 flex flex-col items-center justify-center h-full">
+          {/* Success Animation */}
+          <div className="relative mb-6">
+            <div className="w-32 h-32 rounded-full bg-success-light flex items-center justify-center animate-[pulse_1s_ease-in-out]">
+              <CheckCircle2 size={80} className="text-success" strokeWidth={2.5} />
+            </div>
+            {/* Expanding circles */}
+            <div className="absolute inset-0 rounded-full bg-success/20 animate-[pulse_1s_ease-in-out_0.2s]" />
+            <div className="absolute inset-0 rounded-full bg-success/10 animate-[pulse_1s_ease-in-out_0.4s]" />
+          </div>
+
+          {/* Text */}
+          <h2 className="text-neutral-900 mb-2">Order Accepted!</h2>
+          <p className="text-neutral-600 text-lg mb-8">Navigate to customer location</p>
+
+          {/* Customer Quick Info */}
+          <div className="w-full bg-neutral-100 rounded-2xl p-4 mb-6">
+            <div className="flex items-center gap-4 mb-3">
+              <img
+                src="https://images.unsplash.com/photo-1690162396384-6741ab2f33bd?w=50&h=50&fit=crop"
+                alt="Customer"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div className="flex-1">
+                <h6 className="mb-1">Ahmed Mohamed</h6>
+                <p className="text-sm text-neutral-600">🔋 Battery Replacement</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <MapPin size={16} className="text-neutral-600 mt-0.5" />
+              <p className="text-sm text-neutral-700">Al Olaya District, Riyadh</p>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="w-full grid grid-cols-3 gap-3">
+            <button className="flex flex-col items-center gap-2 p-4 bg-success-light rounded-xl">
+              <Phone size={24} className="text-success" />
+              <span className="text-sm">Call</span>
+            </button>
+            <button className="flex flex-col items-center gap-2 p-4 bg-info-light rounded-xl">
+              <MessageCircle size={24} className="text-info" />
+              <span className="text-sm">Chat</span>
+            </button>
+            <button className="flex flex-col items-center gap-2 p-4 bg-brand-secondary/10 rounded-xl">
+              <Navigation size={24} className="text-brand-secondary" />
+              <span className="text-sm">Navigate</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
