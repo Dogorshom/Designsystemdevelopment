@@ -35,13 +35,12 @@ export function NewOrderNotificationScreen() {
   const progress = ((45 - timeLeft) / 45) * circumference;
 
   return (
-    <div className="h-screen relative overflow-hidden bg-neutral-100">
-      {/* Map Background (30%) */}
+    <div className="relative h-screen bg-neutral-100 overflow-hidden">
+      {/* Map Background fills screen; only ~30% remains visible because sheet overlays the rest */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center z-0"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)',
-          height: '30%'
+          backgroundImage: 'url(https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwZGVsaXZlcnl8ZW58MXx8fHwxNzY2MjU1OTgzfDA&ixlib=rb-4.1.0&q=80&w=1080)'
         }}
       >
         {/* Map Markers */}
@@ -69,11 +68,10 @@ export function NewOrderNotificationScreen() {
         </div>
       </div>
 
-      {/* Bottom Sheet */}
+      {/* Bottom Sheet (over map) */}
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] transition-all duration-300 flex flex-col ${
-          isExpanded ? 'h-[60vh]' : 'h-[25vh]'
-        }`}
+        className="absolute inset-x-0 bottom-0 bg-white rounded-t-[32px] flex flex-col overflow-hidden z-10 shadow-xl"
+        style={{ height: isExpanded ? '85vh' : '25vh', maxHeight: '85vh' }}
       >
         {/* Draggable Handle */}
         <button
@@ -89,7 +87,7 @@ export function NewOrderNotificationScreen() {
           />
         </button>
         
-        <div className="px-5 pb-6 overflow-y-auto flex-1 safe-area-bottom">
+        <div className={`px-5 pb-6 flex-1 min-h-0 safe-area-bottom ${isExpanded ? 'overflow-y-auto' : 'overflow-hidden'}`}>
           {/* Collapsed State */}
           {!isExpanded && (
             <div className="flex items-center justify-between py-2">
