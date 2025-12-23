@@ -149,7 +149,7 @@ export function NewOrderScreen() {
               <DollarSign size={24} className="text-white" />
               <span className="text-white">Estimated Earnings</span>
             </div>
-            <span className="text-2xl font-bold text-white">AED 35</span>
+            <span className="text-2xl font-bold text-white">SAR 35</span>
           </div>
 
           {/* Action Buttons */}

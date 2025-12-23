@@ -109,7 +109,7 @@ export function ActiveOrderArrivedScreen() {
           </Card>
 
           {/* Wait Time Indicator */}
-          <Card className="mb-4">
+          {/* <Card className="mb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-neutral-600" />
@@ -117,7 +117,7 @@ export function ActiveOrderArrivedScreen() {
               </div>
               <span>{waitTime}</span>
             </div>
-          </Card>
+          </Card> */}
 
           {/* Customer Info */}
           <div className="bg-neutral-100 rounded-2xl p-4 mb-4">

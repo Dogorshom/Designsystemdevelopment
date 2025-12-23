@@ -33,7 +33,7 @@ export function EarningsScreen() {
         <Card className="gradient-hero mb-6">
           <div className="text-center py-6">
             <p className="text-neutral-300 mb-2">Current Balance</p>
-            <h1 className="text-white mb-1">AED 1,890</h1>
+            <h1 className="text-white mb-1">SAR 1,890</h1>
             <div className="flex items-center justify-center gap-2 text-brand-tertiary">
               <TrendingUp size={16} />
               <span className="text-sm">+12% from last week</span>
@@ -42,11 +42,11 @@ export function EarningsScreen() {
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div className="text-center">
               <p className="text-neutral-300 text-sm mb-1">This Week</p>
-              <p className="text-white text-xl">AED 1,905</p>
+              <p className="text-white text-xl">SAR 1,905</p>
             </div>
             <div className="text-center">
               <p className="text-neutral-300 text-sm mb-1">This Month</p>
-              <p className="text-white text-xl">AED 7,540</p>
+              <p className="text-white text-xl">SAR 7,540</p>
             </div>
           </div>
         </Card>
@@ -62,7 +62,7 @@ export function EarningsScreen() {
               const height = (data.amount / maxAmount) * 100;
               return (
                 <div key={index} className="flex-1 flex flex-col items-center gap-2">
-                  <span className="text-xs text-neutral-600">AED {data.amount}</span>
+                  <span className="text-xs text-neutral-600">SAR {data.amount}</span>
                   <div className="w-full bg-neutral-200 rounded-t-lg relative" style={{ height: '100%' }}>
                     <div
                       className="absolute bottom-0 w-full gradient-action rounded-t-lg transition-all"
@@ -89,7 +89,7 @@ export function EarningsScreen() {
             <div className="w-10 h-10 rounded-xl bg-info-light flex items-center justify-center mx-auto mb-2">
               <TrendingUp size={20} className="text-info" />
             </div>
-            <p className="text-2xl mb-1">AED 39</p>
+            <p className="text-2xl mb-1">SAR 39</p>
             <p className="text-xs text-neutral-600">Avg/Order</p>
           </Card>
           <Card className="text-center">
@@ -125,7 +125,7 @@ export function EarningsScreen() {
                 <p className={`${
                   transaction.status === 'credit' ? 'text-success' : 'text-info'
                 }`}>
-                  {transaction.status === 'credit' ? '+' : '-'}AED {transaction.amount}
+                  {transaction.status === 'credit' ? '+' : '-'}SAR {transaction.amount}
                 </p>
               </div>
             </Card>

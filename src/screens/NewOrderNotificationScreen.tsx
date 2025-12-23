@@ -71,14 +71,14 @@ export function NewOrderNotificationScreen() {
 
       {/* Bottom Sheet */}
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] safe-area-bottom transition-all duration-300 ${
-          isExpanded ? 'h-[70%]' : 'h-[25%]'
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[32px] transition-all duration-300 flex flex-col ${
+          isExpanded ? 'h-[60vh]' : 'h-[25vh]'
         }`}
       >
         {/* Draggable Handle */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full py-3 flex justify-center"
+          className="w-full py-3 flex justify-center flex-shrink-0"
         >
           <div className="w-10 h-1 bg-neutral-400 rounded-full" />
           <ChevronUp
@@ -89,7 +89,7 @@ export function NewOrderNotificationScreen() {
           />
         </button>
         
-        <div className="px-5 pb-6 overflow-y-auto" style={{ maxHeight: 'calc(100% - 60px)' }}>
+        <div className="px-5 pb-6 overflow-y-auto flex-1 safe-area-bottom">
           {/* Collapsed State */}
           {!isExpanded && (
             <div className="flex items-center justify-between py-2">

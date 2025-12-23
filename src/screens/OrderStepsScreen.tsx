@@ -101,20 +101,20 @@ export function OrderStepsScreen() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Base Fare</span>
-                  <span>AED 25.00</span>
+                  <span>SAR 25.00</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Distance (8.5 km)</span>
-                  <span>AED 8.50</span>
+                  <span>SAR 8.50</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-neutral-600">Time Bonus</span>
-                  <span className="text-success">AED 1.50</span>
+                  <span className="text-success">SAR 1.50</span>
                 </div>
                 <div className="h-px bg-neutral-300 my-3" />
                 <div className="flex justify-between">
                   <span>Total Earnings</span>
-                  <span className="text-xl text-success">AED 35.00</span>
+                  <span className="text-xl text-success">SAR 35.00</span>
                 </div>
               </div>
             </Card>
@@ -134,7 +134,7 @@ export function OrderStepsScreen() {
             <div>
               <h3 className="mb-2">Order Completed!</h3>
               <p className="text-neutral-600">
-                Great job! You've earned AED 35 for this delivery
+                Great job! You've earned SAR 35 for this delivery
               </p>
             </div>
             <div className="space-y-3">
